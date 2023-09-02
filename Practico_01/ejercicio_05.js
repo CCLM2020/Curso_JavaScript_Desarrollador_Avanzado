@@ -1,4 +1,4 @@
-const perfil = {
+let perfil = {
     nombre: "Juan Pérez",
     edad: 30,
     amigos: [

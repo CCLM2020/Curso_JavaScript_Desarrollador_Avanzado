@@ -1,4 +1,4 @@
-const usuario = {
+let usuario = {
   nombre: "Juan",
   peliculasFavoritas: [
     {

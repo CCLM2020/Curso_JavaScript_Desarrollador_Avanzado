@@ -1,4 +1,4 @@
-const producto = {
+let producto = {
     nombre: "iPhone 14 Pro Max",
     precio: 1200,
     disponible: true,

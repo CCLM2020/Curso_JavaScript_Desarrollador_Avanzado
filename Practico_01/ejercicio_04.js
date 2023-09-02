@@ -1,4 +1,4 @@
-const clase = {
+let clase = {
     estudiantes: [
         {
             nombre: "Juan Pérez",
