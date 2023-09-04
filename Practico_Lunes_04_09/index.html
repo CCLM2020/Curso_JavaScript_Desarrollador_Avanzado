@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CDN bootstrap 5.3-->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Mis estilos-->
+    <link rel="stylesheet" href="./css/style.css">
+
+
+    <title>Estudiantes</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row  pt-5">
+            <div class="col-12">
+                <form class="row g-3">
+                    <div class="col-md-5">
+                        <label for="nombre_estudiante" class="form-label">Nombre Estudiante</label>
+                        <input type="text" class="form-control" id="nombre_estudiante">
+                    </div>
+                    <div class="col-md-1 offset-1">
+                        <label for="nota_01" class="form-label">Nota 1</label>
+                        <input type="text" class="form-control" id="nota_01" name="nota_01" pattern="^[1-9]|10$">
+                    </div>
+                    <div class="col-md-1">
+                        <label for="nota_02" class="form-label">Nota 2</label>
+                        <input type="text" class="form-control" id="nota_02" name="nota_02">
+                    </div>
+                    <div class="col-md-1">
+                        <label for="nota_03" class="form-label">Nota 3</label>
+                        <input type="text" class="form-control" id="nota_03" name="nota_03">
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="col-9 text-end pt-4">
+                <button class="btn btn-primary" id="btn_agregar_alumno">Agregar Alumno</button>
+            </div>
+
+            <div class="col-12 pt-5">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Nota_1</th>
+                        <th scope="col">Nota_2</th>
+                        <th scope="col">Nota_3</th>
+                        <th scope="col">Promedio</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Nombre</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- script bootstrap 5.3 -->
+    <script src="./js/bootstrap.bundle.min.js"></script>
+
+    <!-- script jQuery 3.7.1 -->
+    <script src="./js/code.jquery.com_jquery-3.7.1.min.js"></script>
+
+    <!-- script mi archivo js-->
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
