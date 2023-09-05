@@ -8,6 +8,9 @@
     <!-- CDN bootstrap 5.3-->
     <link href="./css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.min.css" rel="stylesheet">
+
     <!-- Mis estilos-->
     <link rel="stylesheet" href="./css/style.css">
 
@@ -23,21 +26,26 @@
             </div>
             <div class="col-12 px-2">
                 <form class="row g-3 border border-secondary-subtle border-bottom-0 rounded-top pb-4">
-                    <div class="col-12 col-sm-6 col-lg-5">
+                    <div class="col-12 col-sm-6 col-lg-5 row-relative mb-1 mb-sm-0">
                         <label for="nombre_estudiante" class="form-label ps-1">Nombre Estudiante</label>
                         <input type="text" class="form-control" id="nombre_estudiante">
+                        <div class="span-error ocultar" id="error_nombre">Falta agregar el nombre del alumno <i
+                                class="fa-solid fa-circle-exclamation fa-lg"></i></div>
                     </div>
-                    <div class="col-3 col-sm-2 col-lg-1 offset-lg-1">
+                    <div class="col-3 col-sm-2 col-lg-1 offset-lg-1 row-relative">
                         <label for="nota_01" class="form-label ps-1">Nota 1</label>
-                        <input type="text" class="form-control" id="nota_01" name="nota_01" pattern="^[1-9]|10$">
+                        <input type="text" class="form-control" id="nota_01" name="nota_01">
+                        <div class="span-error ocultar" id="error_nota_01"></div>
                     </div>
-                    <div class="col-3 col-sm-2 col-lg-1">
+                    <div class="col-3 col-sm-2 col-lg-1 row-relative">
                         <label for="nota_02" class="form-label ps-1">Nota 2</label>
                         <input type="text" class="form-control" id="nota_02" name="nota_02">
+                        <div class="span-error ocultar" id="error_nota_02"></div>
                     </div>
-                    <div class="col-3 col-sm-2 col-lg-1">
+                    <div class="col-3 col-sm-2 col-lg-1 row-relative">
                         <label for="nota_03" class="form-label ps-1">Nota 3</label>
                         <input type="text" class="form-control" id="nota_03" name="nota_03">
+                        <div class="span-error ocultar" id="error_nota_03"></div>
                     </div>
                 </form>
             </div>
@@ -47,27 +55,30 @@
             </div>
 
             <div class="col-12 pt-5">
-                <table class="table">
+                <table class="table" id="tbl_estudiantes">
                     <thead>
-                      <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Nota 1</th>
-                        <th scope="col">Nota 2</th>
-                        <th scope="col">Nota 3</th>
-                        <th scope="col">Promedio</th>
-                      </tr>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Nota 1</th>
+                            <th scope="col">Nota 2</th>
+                            <th scope="col">Nota 3</th>
+                            <th scope="col">Promedio</th>
+                        </tr>
                     </thead>
                     <tbody>
+                        <!--
                       <tr>
+                        
                         <td>Nombre</td>
                         <td>1</td>
                         <td>1</td>
                         <td>1</td>
                         <td>1</td>
+                        
                       </tr>
-
+                        -->
                     </tbody>
-                  </table>
+                </table>
             </div>
         </div>
     </div>
@@ -75,8 +86,14 @@
     <!-- script bootstrap 5.3 -->
     <script src="./js/bootstrap.bundle.min.js"></script>
 
+    <!-- CDN Fontawesome Icons -->
+    <script src="https://kit.fontawesome.com/1a6625aa14.js" crossorigin="anonymous"></script>
+
     <!-- script jQuery 3.7.1 -->
     <script src="./js/code.jquery.com_jquery-3.7.1.min.js"></script>
+
+    <!-- SweetAlert2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.all.min.js"></script>
 
     <!-- CDN jquery.inputmask -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
