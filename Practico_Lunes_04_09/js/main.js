@@ -93,12 +93,73 @@ $(document).ready(function () {
         })
     });
 
-    //Cuando hacemos click en algun borrar de alguna fila de la tabla categorias
+    //Cuando hacemos click en algun borrar de alguna fila de la tabla
     $('#tbl_estudiantes tbody').on('click', '.eliminar-alumno', function () {
         let id_alumno = $(this).attr("id");
-        alert('eliminar '+id_alumno)
+
+        Swal.fire({
+            title: 'Eliminar',
+            html: '¿Desea eliminar el estudiante: <b class="text-danger">' + estudiantes[id_alumno].nombre + '</b>?',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar!',
+            cancelButtonText: "Cancelar",
+            reverseButtons: true,
+            buttonsStyling: false,
+            customClass: {
+                title: 'fs-4 text-danger',
+                confirmButton: 'btn btn-danger',
+                cancelButton: 'btn btn-outline-danger me-2',
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                estudiantes.splice(id_alumno, 1);
+
+                $('#tbl_estudiantes tbody').empty();
+
+
+                for (var i = 0; i < estudiantes.length; i++) {
+                    $("#tbl_estudiantes tbody").append('<tr><td>' + estudiantes[i].nombre + '</td><td>' + estudiantes[i].calificaciones[0] + '</td><td>' + estudiantes[i].calificaciones[1] + '</td><td>' + estudiantes[i].calificaciones[2] + '</td><td>' + estudiantes[i].promedio + '</td><td><a class="text-success editar-alumno" name="editar-alumno" id="' + i + '" title="Editar"><i class="fa-regular fa-pen-to-square my-auto pe-1 fa-lg"></i></a><a class="text-danger ps-3 eliminar-alumno" name="eliminar-alumno" id="' + i + '" title="Eliminar"><i class="fa-regular fa-trash-can my-auto pe-1 fa-lg"></i></a></td></tr>');
+                }
+
+                $('#btn_agregar_alumno').removeClass('ocultar');
+                $('#btn_reset').addClass('ocultar');
+
+            };
+        })
+
     });
-    var id_categoria = $(this).attr("id");
+
+
+    //Cuando hacemos click en algun editar de alguna fila de la tabla
+    $('#tbl_estudiantes tbody').on('click', '.editar-alumno', function () {
+        let id_alumno = $(this).attr("id");
+
+        $('#indice_Oculto').val(id_alumno);
+
+        $('#nombre_estudiante').val(estudiantes[id_alumno].nombre);
+        $('#nota_01').val(estudiantes[id_alumno].calificaciones[0]);
+        $('#nota_02').val(estudiantes[id_alumno].calificaciones[1]);
+        $('#nota_03').val(estudiantes[id_alumno].calificaciones[2]);
+
+        $('#btn_agregar_alumno').addClass('ocultar');
+        $('#btn_reset').addClass('ocultar');
+        $('#btn_cancelar').removeClass('ocultar');
+        $('#btn_modificar_alumno').removeClass('ocultar');
+        //alert('editar: ' + id_alumno)
+        //estudiantes.splice(id_alumno, 1);
+
+        //$('#tbl_estudiantes tbody').empty();
+
+        /*
+        for (var i = 0; i < estudiantes.length; i++) {
+            $("#tbl_estudiantes tbody").append('<tr><td>' + estudiantes[i].nombre + '</td><td>' + estudiantes[i].calificaciones[0] + '</td><td>' + estudiantes[i].calificaciones[1] + '</td><td>' + estudiantes[i].calificaciones[2] + '</td><td>' + estudiantes[i].promedio + '</td><td><a class="text-success editar-alumno" name="editar-alumno" id="' + i + '" title="Editar"><i class="fa-regular fa-pen-to-square my-auto pe-1 fa-lg"></i></a><a class="text-danger ps-3 eliminar-alumno" name="eliminar-alumno" id="' + i + '" title="Eliminar"><i class="fa-regular fa-trash-can my-auto pe-1 fa-lg"></i></a></td></tr>');
+        }
+        */
+
+        //$('#btn_agregar_alumno').removeClass('ocultar');
+        //$('#btn_reset').addClass('ocultar');
+    });
     /*
     $('.eliminar-alumno').on('click', function(e) {
         alert('eliminar')
@@ -106,8 +167,58 @@ $(document).ready(function () {
         
         // Encuentra la fila padre (tr) y la elimina
         $(this).closest('tr').remove();
+        // Modificamos toda la fila
+        elemento.closest('tr').replaceWith('<tr><td>1</td><td>2</td></tr>');
       });
       */
+
+
+    //Cuando hacemos click cancelar
+    $('#btn_cancelar').click(function () {
+        $("#frm_alumnos")[0].reset();
+
+        if (estudiantes.length >= 3) {
+            $('#btn_reset').removeClass('ocultar');
+        } else {
+            $('#btn_agregar_alumno').removeClass('ocultar');
+        }
+        //$('#btn_agregar_alumno').addClass('ocultar');
+        //$('#btn_reset').addClass('ocultar');
+
+        $('#btn_cancelar').addClass('ocultar');
+        $('#btn_modificar_alumno').addClass('ocultar');
+    });
+
+
+    //Cuando hacemos click modificar
+    $('#btn_modificar_alumno').click(function () {
+        let id_alumno = parseFloat($('#indice_Oculto').val());
+
+        let nombre_estudiante = $('#nombre_estudiante').val();
+        let notas_estudiante = [parseFloat($('#nota_01').val()), parseFloat($('#nota_02').val()), parseFloat($('#nota_03').val())];
+                    estudiantes.push(new estudiante(nombre_estudiante, notas_estudiante));
+
+        
+        estudiantes[id_alumno].nombre = nombre_estudiante;
+        estudiantes[id_alumno].no
+        //$('#tbl_estudiantes').find('tr:nth-child(' + id_alumno + ')').replaceWith('<tr><td>1</td><td>2</td></tr>');
+        //alert('modificar' +  $('#indice_Oculto').val())
+
+
+        /*
+        $("#frm_alumnos")[0].reset();
+
+        if (estudiantes.length >= 3) {
+            $('#btn_reset').removeClass('ocultar');
+        } else {
+            $('#btn_agregar_alumno').removeClass('ocultar');
+        }
+        //$('#btn_agregar_alumno').addClass('ocultar');
+        //$('#btn_reset').addClass('ocultar');
+
+        $('#btn_cancelar').addClass('ocultar');
+        $('#btn_modificar_alumno').addClass('ocultar');*/
+    });
 
     //Esta función comprueba los datos requeridos
     function ComprobarDatos() {

@@ -47,12 +47,17 @@
                         <input type="text" class="form-control" id="nota_03" name="nota_03">
                         <div class="span-error ocultar" id="error_nota_03"></div>
                     </div>
+                    <!--este input oculto los voy a usar para pasar el indice en la edicion-->
+                    <input type="hidden" id="indice_Oculto" name="indice_Oculto">
                 </form>
             </div>
 
             <div class="col-12 text-end pt-4 border border-secondary-subtle border-top-0 rounded-bottom pb-3">
-                <button class="btn btn-primary" id="btn_agregar_alumno">Agregar Alumno</button>
+                <button class="btn btn-primary" id="btn_agregar_alumno">Agregar</button>
                 <button class="btn btn-danger ocultar" id="btn_reset">Resetear</button>
+                <button class="btn btn-outline-success ocultar" id="btn_cancelar">Cancelar</button>
+                <button class="btn btn-success ocultar" id="btn_modificar_alumno">Modificar</button>
+                
             </div>
 
             <div class="col-12 pt-5">

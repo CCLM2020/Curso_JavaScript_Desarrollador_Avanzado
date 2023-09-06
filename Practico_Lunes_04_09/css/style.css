@@ -27,6 +27,14 @@ a:hover {
     cursor: pointer;
 }
 
+table tr td:nth-child(1) {
+    /*display: table-cell;*/
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /*1 linea en este caso*/
+    -webkit-box-orient: vertical;
+}
+
 table tr td:nth-child(5) {
-    background-color: #5eff0077;
+    background-color: #0099ff41;
   }
