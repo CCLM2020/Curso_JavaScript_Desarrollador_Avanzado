@@ -12,13 +12,14 @@ $(document).ready(function () {
         clearMaskOnLostFocus: false,
     });
 
-    function estudiante(nombre, calificaciones) {
+    function estudiante(nombre, calificaciones, promedio) {
         this.nombre = nombre;
         this.calificaciones = calificaciones;
+        this.promedio = promedio;
         // Calculamos el promedio de las notas
-        this.promedio = parseFloat((this.calificaciones.reduce(function (promedio, nota) {
-            return promedio + nota;
-        }, 0) / this.calificaciones.length).toFixed(2));
+        //this.promedio = parseFloat((this.calificaciones.reduce(function (promedio, nota) {
+        //    return promedio + nota;
+        //}, 0) / this.calificaciones.length).toFixed(2));
 
     }
 
@@ -48,6 +49,9 @@ $(document).ready(function () {
                 if (result.isConfirmed) {
 
                     let notas_estudiante = [parseFloat($('#nota_01').val()), parseFloat($('#nota_02').val()), parseFloat($('#nota_03').val())];
+
+                    let promedio = 
+
                     estudiantes.push(new estudiante(nombre_estudiante, notas_estudiante));
 
                     $("#frm_alumnos")[0].reset();
@@ -196,11 +200,13 @@ $(document).ready(function () {
 
         let nombre_estudiante = $('#nombre_estudiante').val();
         let notas_estudiante = [parseFloat($('#nota_01').val()), parseFloat($('#nota_02').val()), parseFloat($('#nota_03').val())];
-                    estudiantes.push(new estudiante(nombre_estudiante, notas_estudiante));
+                    //estudiantes.push(new estudiante(nombre_estudiante, notas_estudiante));
 
         
         estudiantes[id_alumno].nombre = nombre_estudiante;
-        estudiantes[id_alumno].no
+        estudiantes[id_alumno].calificaciones = notas_estudiante;
+
+        console.log(estudiantes)
         //$('#tbl_estudiantes').find('tr:nth-child(' + id_alumno + ')').replaceWith('<tr><td>1</td><td>2</td></tr>');
         //alert('modificar' +  $('#indice_Oculto').val())
 
