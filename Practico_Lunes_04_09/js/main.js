@@ -12,17 +12,14 @@ $(document).ready(function () {
         clearMaskOnLostFocus: false,
     });
 
+    //creo el objeto estudiante
     function estudiante(nombre, calificaciones, promedio) {
         this.nombre = nombre;
         this.calificaciones = calificaciones;
         this.promedio = promedio;
-        // Calculamos el promedio de las notas
-        //this.promedio = parseFloat((this.calificaciones.reduce(function (promedio, nota) {
-        //    return promedio + nota;
-        //}, 0) / this.calificaciones.length).toFixed(2));
-
     }
 
+    //creo un array para almacenar los nuevos estudiantes.
     let estudiantes = [];
 
     //cuando hago click en el boton agregar alumno
@@ -50,9 +47,9 @@ $(document).ready(function () {
 
                     let notas_estudiante = [parseFloat($('#nota_01').val()), parseFloat($('#nota_02').val()), parseFloat($('#nota_03').val())];
 
-                    let promedio = 
+                    let promedio = promedioNotas(notas_estudiante);
 
-                    estudiantes.push(new estudiante(nombre_estudiante, notas_estudiante));
+                    estudiantes.push(new estudiante(nombre_estudiante, notas_estudiante, promedio));
 
                     $("#frm_alumnos")[0].reset();
                     i = (estudiantes.length - 1);
@@ -126,8 +123,7 @@ $(document).ready(function () {
                     $("#tbl_estudiantes tbody").append('<tr><td>' + estudiantes[i].nombre + '</td><td>' + estudiantes[i].calificaciones[0] + '</td><td>' + estudiantes[i].calificaciones[1] + '</td><td>' + estudiantes[i].calificaciones[2] + '</td><td>' + estudiantes[i].promedio + '</td><td><a class="text-success editar-alumno" name="editar-alumno" id="' + i + '" title="Editar"><i class="fa-regular fa-pen-to-square my-auto pe-1 fa-lg"></i></a><a class="text-danger ps-3 eliminar-alumno" name="eliminar-alumno" id="' + i + '" title="Eliminar"><i class="fa-regular fa-trash-can my-auto pe-1 fa-lg"></i></a></td></tr>');
                 }
 
-                $('#btn_agregar_alumno').removeClass('ocultar');
-                $('#btn_reset').addClass('ocultar');
+                reset_Formulario();
 
             };
         })
@@ -150,80 +146,50 @@ $(document).ready(function () {
         $('#btn_reset').addClass('ocultar');
         $('#btn_cancelar').removeClass('ocultar');
         $('#btn_modificar_alumno').removeClass('ocultar');
-        //alert('editar: ' + id_alumno)
-        //estudiantes.splice(id_alumno, 1);
 
-        //$('#tbl_estudiantes tbody').empty();
-
-        /*
-        for (var i = 0; i < estudiantes.length; i++) {
-            $("#tbl_estudiantes tbody").append('<tr><td>' + estudiantes[i].nombre + '</td><td>' + estudiantes[i].calificaciones[0] + '</td><td>' + estudiantes[i].calificaciones[1] + '</td><td>' + estudiantes[i].calificaciones[2] + '</td><td>' + estudiantes[i].promedio + '</td><td><a class="text-success editar-alumno" name="editar-alumno" id="' + i + '" title="Editar"><i class="fa-regular fa-pen-to-square my-auto pe-1 fa-lg"></i></a><a class="text-danger ps-3 eliminar-alumno" name="eliminar-alumno" id="' + i + '" title="Eliminar"><i class="fa-regular fa-trash-can my-auto pe-1 fa-lg"></i></a></td></tr>');
-        }
-        */
-
-        //$('#btn_agregar_alumno').removeClass('ocultar');
-        //$('#btn_reset').addClass('ocultar');
     });
-    /*
-    $('.eliminar-alumno').on('click', function(e) {
-        alert('eliminar')
-        e.preventDefault(); // Evita el comportamiento predeterminado del enlace
-        
-        // Encuentra la fila padre (tr) y la elimina
-        $(this).closest('tr').remove();
-        // Modificamos toda la fila
-        elemento.closest('tr').replaceWith('<tr><td>1</td><td>2</td></tr>');
-      });
-      */
-
 
     //Cuando hacemos click cancelar
     $('#btn_cancelar').click(function () {
-        $("#frm_alumnos")[0].reset();
-
-        if (estudiantes.length >= 3) {
-            $('#btn_reset').removeClass('ocultar');
-        } else {
-            $('#btn_agregar_alumno').removeClass('ocultar');
-        }
-        //$('#btn_agregar_alumno').addClass('ocultar');
-        //$('#btn_reset').addClass('ocultar');
-
-        $('#btn_cancelar').addClass('ocultar');
-        $('#btn_modificar_alumno').addClass('ocultar');
+        reset_Formulario();
     });
-
 
     //Cuando hacemos click modificar
     $('#btn_modificar_alumno').click(function () {
         let id_alumno = parseFloat($('#indice_Oculto').val());
 
-        let nombre_estudiante = $('#nombre_estudiante').val();
-        let notas_estudiante = [parseFloat($('#nota_01').val()), parseFloat($('#nota_02').val()), parseFloat($('#nota_03').val())];
-                    //estudiantes.push(new estudiante(nombre_estudiante, notas_estudiante));
-
+        Swal.fire({
+            title: 'Modificar',
+            html: '¿Desea modificar el estudiante: <b class="text-success">' + estudiantes[id_alumno].nombre + '</b>?',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, modificar!',
+            cancelButtonText: "Cancelar",
+            reverseButtons: true,
+            buttonsStyling: false,
+            customClass: {
+                title: 'fs-4 text-success',
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-outline-success me-2',
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let nombre_estudiante = $('#nombre_estudiante').val();
+                let notas_estudiante = [parseFloat($('#nota_01').val()), parseFloat($('#nota_02').val()), parseFloat($('#nota_03').val())];
+                let promedio = promedioNotas(notas_estudiante);
         
-        estudiantes[id_alumno].nombre = nombre_estudiante;
-        estudiantes[id_alumno].calificaciones = notas_estudiante;
+        
+                estudiantes[id_alumno].nombre = nombre_estudiante;
+                estudiantes[id_alumno].calificaciones = notas_estudiante;
+                estudiantes[id_alumno].promedio = promedio;
+        
+                let i = id_alumno;
+        
+                $('#tbl_estudiantes tbody').find('tr:nth-child(' + (i + 1) + ')').replaceWith('<tr><td>' + estudiantes[i].nombre + '</td><td>' + estudiantes[i].calificaciones[0] + '</td><td>' + estudiantes[i].calificaciones[1] + '</td><td>' + estudiantes[i].calificaciones[2] + '</td><td>' + estudiantes[i].promedio + '</td><td><a class="text-success editar-alumno" name="editar-alumno" id="' + i + '" title="Editar"><i class="fa-regular fa-pen-to-square my-auto pe-1 fa-lg"></i></a><a class="text-danger ps-3 eliminar-alumno" name="eliminar-alumno" id="' + i + '" title="Eliminar"><i class="fa-regular fa-trash-can my-auto pe-1 fa-lg"></i></a></td></tr>');
+        
+                reset_Formulario();
+            };
+        })
 
-        console.log(estudiantes)
-        //$('#tbl_estudiantes').find('tr:nth-child(' + id_alumno + ')').replaceWith('<tr><td>1</td><td>2</td></tr>');
-        //alert('modificar' +  $('#indice_Oculto').val())
-
-
-        /*
-        $("#frm_alumnos")[0].reset();
-
-        if (estudiantes.length >= 3) {
-            $('#btn_reset').removeClass('ocultar');
-        } else {
-            $('#btn_agregar_alumno').removeClass('ocultar');
-        }
-        //$('#btn_agregar_alumno').addClass('ocultar');
-        //$('#btn_reset').addClass('ocultar');
-
-        $('#btn_cancelar').addClass('ocultar');
-        $('#btn_modificar_alumno').addClass('ocultar');*/
     });
 
     //Esta función comprueba los datos requeridos
@@ -271,7 +237,6 @@ $(document).ready(function () {
         }
     };
 
-
     //Cuando escribo un valor se borra el mensaje de error y recupera el color normal
     $('#nombre_estudiante').keyup(function () {
         if ($('#nombre_estudiante').val() !== "") {
@@ -304,19 +269,48 @@ $(document).ready(function () {
         }
     });
 
-    function validateNumero(input) {
+    //Funcion para luego de agregar, modificar, eliminar o resetear reconfigurar valores.
+    function reset_Formulario() {
+        $("#frm_alumnos")[0].reset();
 
-        // Validamos que el valor sea un número
-        if (!$.isNumeric(input)) {
-            return false;
+        if (estudiantes.length >= 3) {
+            $('#btn_reset').removeClass('ocultar');
+        } else {
+            $('#btn_agregar_alumno').removeClass('ocultar');
         }
 
-        // Validamos que el valor esté entre 1 y 10
-        var value = parseInt(input);
-        if (value < 0 || value > 10) {
-            return false;
-        }
-
-        return true;
+        $('#btn_cancelar').addClass('ocultar');
+        $('#btn_modificar_alumno').addClass('ocultar');
     }
 });
+
+
+
+
+//Funcion para que calculamos el promedio de las notas
+function promedioNotas(notas) {
+
+    let promedio = parseFloat((notas.reduce(function (promedio, nota) {
+        return promedio + nota;
+    }, 0) / notas.length).toFixed(2));
+
+    return promedio;
+
+}
+
+//Funcion que me va a devolver verdadero si es un numero y esta entre 0 y 10
+function validateNumero(input) {
+
+    // Validamos que el valor sea un número
+    if (!$.isNumeric(input)) {
+        return false;
+    }
+
+    // Validamos que el valor esté entre 1 y 10
+    var value = parseInt(input);
+    if (value < 0 || value > 10) {
+        return false;
+    }
+
+    return true;
+}
