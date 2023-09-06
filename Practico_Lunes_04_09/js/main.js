@@ -9,8 +9,7 @@ $(document).ready(function () {
         integerDigits: 2,
         digits: 0,
         digitsOptional: false,
-        clearMaskOnLostFocus: false
-        //radixPoint: ','
+        clearMaskOnLostFocus: false,
     });
 
     function estudiante(nombre, calificaciones) {
@@ -31,7 +30,7 @@ $(document).ready(function () {
         if (ComprobarDatos()) {
 
             let nombre_estudiante = $('#nombre_estudiante').val();
-            
+
             Swal.fire({
                 title: 'Agregar',
                 html: '¿Desea agregar el estudiante: <b class="text-primary">' + nombre_estudiante + '</b>?',
@@ -50,24 +49,65 @@ $(document).ready(function () {
 
                     let notas_estudiante = [parseFloat($('#nota_01').val()), parseFloat($('#nota_02').val()), parseFloat($('#nota_03').val())];
                     estudiantes.push(new estudiante(nombre_estudiante, notas_estudiante));
-                    console.log(estudiantes);
+
+                    $("#frm_alumnos")[0].reset();
                     i = (estudiantes.length - 1);
-                    //for (var i = 0; i < estudiantes.length; i++) {
-                        $("#tbl_estudiantes tbody").append('<tr><td>' + estudiantes[i].nombre + '</td><td>' + estudiantes[i].calificaciones[0] + '</td><td>' + estudiantes[i].calificaciones[1] + '</td><td>' + estudiantes[i].calificaciones[2] + '</td><td class="text-secondary">' + estudiantes[i].promedio + '</td></tr>');
-                    //}
-                   
-                    
+
+                    $("#tbl_estudiantes tbody").append('<tr><td>' + estudiantes[i].nombre + '</td><td>' + estudiantes[i].calificaciones[0] + '</td><td>' + estudiantes[i].calificaciones[1] + '</td><td>' + estudiantes[i].calificaciones[2] + '</td><td>' + estudiantes[i].promedio + '</td><td><a class="text-success editar-alumno" name="editar-alumno" id="' + i + '" title="Editar"><i class="fa-regular fa-pen-to-square my-auto pe-1 fa-lg"></i></a><a class="text-danger ps-3 eliminar-alumno" name="eliminar-alumno" id="' + i + '" title="Eliminar"><i class="fa-regular fa-trash-can my-auto pe-1 fa-lg"></i></a></td></tr>');
+
+                    if (estudiantes.length >= 3) {
+                        $('#btn_agregar_alumno').addClass('ocultar');
+                        $('#btn_reset').removeClass('ocultar');
+                    }
+
                 };
             })
         };
-        
-        
-        
-
-        
-
     });
 
+
+    //cuando hago click en el boton resetear
+    $('#btn_reset').click(function () {
+        Swal.fire({
+            title: 'Resetear',
+            html: '¿Desea resetear la lista de estudiantes con sus promedios?',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, resetear!',
+            cancelButtonText: "Cancelar",
+            reverseButtons: true,
+            buttonsStyling: false,
+            customClass: {
+                title: 'fs-4 text-danger',
+                confirmButton: 'btn btn-danger',
+                cancelButton: 'btn btn-outline-danger me-2',
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                estudiantes.length = 0;
+                $('#tbl_estudiantes tbody').empty();
+
+                $('#btn_agregar_alumno').removeClass('ocultar');
+                $('#btn_reset').addClass('ocultar');
+            };
+        })
+    });
+
+    //Cuando hacemos click en algun borrar de alguna fila de la tabla categorias
+    $('#tbl_estudiantes tbody').on('click', '.eliminar-alumno', function () {
+        let id_alumno = $(this).attr("id");
+        alert('eliminar '+id_alumno)
+    });
+    var id_categoria = $(this).attr("id");
+    /*
+    $('.eliminar-alumno').on('click', function(e) {
+        alert('eliminar')
+        e.preventDefault(); // Evita el comportamiento predeterminado del enlace
+        
+        // Encuentra la fila padre (tr) y la elimina
+        $(this).closest('tr').remove();
+      });
+      */
 
     //Esta función comprueba los datos requeridos
     function ComprobarDatos() {

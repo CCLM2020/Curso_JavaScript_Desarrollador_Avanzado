@@ -22,3 +22,11 @@
 .ocultar {
     display: none;
 }
+
+a:hover {
+    cursor: pointer;
+}
+
+table tr td:nth-child(5) {
+    background-color: #5eff0077;
+  }
