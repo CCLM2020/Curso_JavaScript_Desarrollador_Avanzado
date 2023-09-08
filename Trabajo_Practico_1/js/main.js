@@ -75,7 +75,7 @@ console.log('El promedio es: ' + resultado_4 + '\n\n');
 
 function valor_maximo(arreglo) {
 
-    let maximo = arreglo.reduce((maximo, numero) => (numero > maximo ? numero : maximo), arreglo[0]);
+    let maximo = arreglo.reduce((maximo, numero) => (numero > maximo ? numero : maximo), 0);
 
     return maximo;
 }
