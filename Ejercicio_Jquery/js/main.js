@@ -69,8 +69,8 @@ $(document).ready(function () {
             return this.productos.reduce((total, producto) => total + producto.precio, 0);
         }
 
-         // Metodo para calcular el total de la compra
-         calcularCantidad() {
+        // Metodo para calcular el total de la compra
+        calcularCantidad() {
             return this.productos.reduce((total, producto) => total + producto.cantidadEnStock, 0);
         }
     }
@@ -101,14 +101,25 @@ $(document).ready(function () {
     let card = "";
     for (let i = 0; i < listadoProductos.length; i++) {
 
+        let palabra = "";
+        let valor = "";
+        // Comprobar si el producto es de la clase ProductoAlimenticio
+        if (listadoProductos[i] instanceof ProductoAlimenticio) {
+            palabra = "Fecha de caducidad: ";
+            valor = listadoProductos[i].fechaCaducidad;
+        } else {
+            palabra = "Potencia: ";
+            valor = listadoProductos[i].potencia;
+        }
 
         card = '<div class="col" id="' + i + '">' +
             '<div class="card h-100 card-shadow">' +
             '<img src="./imgProductos/' + i + '.png" class="card-img-top img-fluid" alt="..." id="' + i + '.png"><div class="card-body">' +
             '<div class="card-body">' +
             '<h5 class="card-title pb-2">' + listadoProductos[i].nombre + '</h5>' +
-            '<p class="card-text">Precio: <span class="text-success">$' + listadoProductos[i].precio + '</span></p>' +
-            '<p class="card-text">Cantidad: <span class="text-primary">' + listadoProductos[i].cantidadEnStock + '</span></p>' +
+            '<p class="card-text">Precio: <span class="text-success">$ ' + listadoProductos[i].precio + '</span></p>' +
+            '<p class="card-text">Cantidad: <span class="text-primary cantidad">' + listadoProductos[i].cantidadEnStock + '</span></p>' +
+            '<p class="card-text">' + palabra + '<span>' + valor + '</span></p>' +
             '</div>' +
             '<div class="text-end p-1">' +
             '<a class="btn btn-danger agregar-carrito"><i class="fa-solid fa-plus"></i> Agregar carrito</a>' +
@@ -123,34 +134,38 @@ $(document).ready(function () {
         // Obtenemos el id de la columna clase col mas cercana del boton donde hice clic
         let col_Id = $(this).closest('.col').attr('id');
 
-        console.log[listadoProductos[col_Id].nombre];
+        //console.log[listadoProductos[col_Id].nombre];
 
         if (listadoProductos[col_Id].cantidadEnStock > 0) {
-                //console.log[listadoProductos[col_Id]];
+            //console.log[listadoProductos[col_Id]];
 
-            
+
             // Comprobar si el producto es de la clase ProductoAlimenticio
             if (listadoProductos[col_Id] instanceof ProductoAlimenticio) {
-                console.log("El producto es un producto alimenticio");
+                //console.log("El producto es un producto alimenticio");
                 let p2 = new ProductoAlimenticio(listadoProductos[col_Id].nombre, listadoProductos[col_Id].precio, 1, listadoProductos[col_Id].fechaCaducidad);
                 carrito.agregarProducto(p2);
             } else {
-                console.log("El producto no es un producto alimenticio");
+                //console.log("El producto no es un producto alimenticio");
                 let p1 = new ProductoElectronico(listadoProductos[col_Id].nombre, listadoProductos[col_Id].precio, 1, listadoProductos[col_Id].potencia);
                 carrito.agregarProducto(p1);
             }
 
+            listadoProductos[col_Id].cantidadEnStock = (listadoProductos[col_Id].cantidadEnStock - 1);
+            $(this).closest('.col').find('.cantidad').text(listadoProductos[col_Id].cantidadEnStock);
 
-            //let agregarProducto = {id: col_Id, nombre: listadoProductos[col_Id].nombre, precio: listadoProductos[col_Id].precio, cantidad: 1};
-            //carrito.agregarProducto(p);
+            if (listadoProductos[col_Id].cantidadEnStock == 0) {
+                $(this).closest('.agregar-carrito').addClass('disabled');
+            }
+
 
         }
         //console.log('ID de la columna: ' + listadoProductos[col_Id].nombre);
 
         $('#cantidad_carrito').html(carrito.calcularCantidad());
         $('#total_carrito').html(carrito.calcularTotal());
-        
-        //console.log('Cantidad en el carrito' + carrito.calcularCantidad());
+
+        console.log(carrito);
 
     });
 
