@@ -126,7 +126,7 @@ $(document).ready(function () {
         console.log[listadoProductos[col_Id].nombre];
 
         if (listadoProductos[col_Id].cantidadEnStock > 0) {
-                console.log[listadoProductos[col_Id]];
+                //console.log[listadoProductos[col_Id]];
 
             
             // Comprobar si el producto es de la clase ProductoAlimenticio
@@ -143,7 +143,6 @@ $(document).ready(function () {
 
             //let agregarProducto = {id: col_Id, nombre: listadoProductos[col_Id].nombre, precio: listadoProductos[col_Id].precio, cantidad: 1};
             //carrito.agregarProducto(p);
-
 
         }
         //console.log('ID de la columna: ' + listadoProductos[col_Id].nombre);
