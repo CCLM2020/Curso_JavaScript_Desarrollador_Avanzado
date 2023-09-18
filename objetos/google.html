@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejemplo de mapas en vivo</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places,visualization&v=weekly"></script>
+  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/google-maps-react@1.15.0/dist/google-maps-react.min.js"></script>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script>
+    import React, { useState } from "react";
+    import { Maps } from "google-maps-react";
+
+    const App = () => {
+      const [center, setCenter] = useState({
+        lat: -34.603767,
+        lng: -58.381934,
+      });
+
+      const [zoom, setZoom] = useState(15);
+
+      const onMapClick = (event) => {
+        setCenter({
+          lat: event.latLng.lat(),
+          lng: event.latLng.lng(),
+        });
+        setZoom(17);
+      };
+
+      return (
+        <div>
+          <Maps
+            center={center}
+            zoom={zoom}
+            mapType="satellite"
+            onMapClick={onMapClick}
+          >
+            <Marker position={center} />
+          </Maps>
+        </div>
+      );
+    };
+
+    const rootElement = document.getElementById("map");
+    ReactDOM.render(<App />, rootElement);
+  </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+/*
+html {
+    font-size: 13px;
+}
+*/
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.error {
+  border: 1px solid rgba(255, 0, 0, 0.966) !important;
+  -webkit-box-shadow: 0 0 1px 3px rgba(253, 2, 2, 0.534) !important;
+          box-shadow: 0 0 1px 3px rgba(253, 2, 2, 0.534) !important;
+}
+
+.row-relative {
+  position: relative;
+}
+
+.span-error {
+  position: absolute;
+  top: 106%;
+  left: 2%;
+  font-size: 0.8rem;
+  color: red;
+  line-height: 0.95;
+  padding-top: 0.05rem;
+}
+
+.ocultar {
+  display: none;
+}
+
+.a_personal {
+  text-decoration: none;
+}
+.a_personal:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.card-shadow:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
