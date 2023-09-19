@@ -50,7 +50,7 @@
                     <div class="container-fluid justify-content-end">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link a_personal" id="ir_a_carrito"><i class="fa-solid fa-cart-shopping fa-lg text-danger"></i> <span id="cantidad_carrito">0</span> <span class="text-danger text-personal">Total $:<span id="total_carrito">0</span></span></a>
+                                <a class="nav-link a_personal text-danger" id="ir_a_carrito"><i class="fa-solid fa-cart-shopping fa-lg"></i> <span id="cantidad_carrito">0</span> <span class="text-personal ps-2">Total $<span id="total_carrito">0</span></span></a>
                             </li>
                         </ul>
                     </div>
@@ -93,6 +93,49 @@
         </div>
     </div>
     <!-- Fin Section -->
+
+
+    <div class="modal" id="modal-carrito" data-bs-focus="false" tabindex="-1">
+
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+    
+                <div class="modal-header bg-warning text-danger">
+                    <h5 class="modal-title" id="titulo-modal-carrito"><i class="fa-solid fa-cart-shopping fa-lg text-danger"></i> Shopee Market</h5>
+                    <div data-bs-theme="dark">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </div>
+    
+                <div class="modal-body">
+                    <div class="col-12 pt-1">
+                        <table class="table" id="tbl_carrito">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Detalle</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-danger" id="btnAgregarUsuario">Vaciar Carrito</button>
+                    </div>
+                    
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
+                    <!--<button type="button" class="btn btn-danger" id="btnAgregarUsuario"></button>-->
+                    <button type="button" class="btn btn-danger" id="btnModificarUsuario">Finalizar Compra</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- script jQuery 3.7.1 -->
     <script src="./js/code.jquery.com_jquery-3.7.1.min.js"></script>

@@ -73,6 +73,23 @@ $(document).ready(function () {
         calcularCantidad() {
             return this.productos.reduce((total, producto) => total + producto.cantidadEnStock, 0);
         }
+
+        mostrarProductos() {
+            $("#tbl_carrito tbody").html('');
+            for (let i = 0; i < this.productos.length; i++) {
+                let palabra = "";
+                let valor = "";
+                // Comprobar si el producto es de la clase ProductoAlimenticio
+                if (this.productos[i] instanceof ProductoAlimenticio) {
+                    palabra = "Fecha de caducidad: ";
+                    valor = this.productos[i].fechaCaducidad;
+                } else {
+                    palabra = "Potencia: ";
+                    valor = this.productos[i].potencia;
+                }
+                $("#tbl_carrito tbody").append('<tr><td>' + this.productos[i].nombre + '</td><td> $' + this.productos[i].precio + '</td><td>' + this.productos[i].cantidadEnStock + '</td><td>' + palabra + valor + '</td><td><a class="text-danger ps-3 a_personal eliminar-producto" name="eliminar-producto" id="' + i + '" title="Eliminar"><i class="fa-regular fa-trash-can my-auto pe-1 fa-lg"></i></a></td></tr>');
+            }
+        }
     }
 
     // nuevo carrito
@@ -165,8 +182,13 @@ $(document).ready(function () {
         $('#cantidad_carrito').html(carrito.calcularCantidad());
         $('#total_carrito').html(carrito.calcularTotal());
 
-        console.log(carrito);
+        
 
+    });
+
+    $('#ir_a_carrito').on('click', function () {
+        carrito.mostrarProductos();
+        $('#modal-carrito').modal("show");
     });
 
 });

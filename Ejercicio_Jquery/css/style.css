@@ -55,3 +55,7 @@ body {
   font-weight: bold;
   font-size: 0.8rem;
 }
+
+#tbl_carrito tbody td {
+  color: #535b61; /* Esto establece el color text-secondary para el texto */
+}
