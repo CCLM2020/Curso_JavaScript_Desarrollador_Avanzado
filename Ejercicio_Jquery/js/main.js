@@ -57,7 +57,7 @@ $(document).ready(function () {
         // mtodo para eliminar un producto del carrito
         eliminarProducto(producto) {
             for (let i = 0; i < this.productos.length; i++) {
-                if (this.productos[i] === producto) {
+                if (this.productos[i].nombre === producto) {
                     this.productos.splice(i, 1);
                     break;
                 }
@@ -75,7 +75,7 @@ $(document).ready(function () {
         }
 
         mostrarProductos() {
-            $("#tbl_carrito tbody").html('');
+            $("#tbl_carrito tbody").empty();
             for (let i = 0; i < this.productos.length; i++) {
                 let palabra = "";
                 let valor = "";
@@ -87,20 +87,13 @@ $(document).ready(function () {
                     palabra = "Potencia: ";
                     valor = this.productos[i].potencia;
                 }
-                $("#tbl_carrito tbody").append('<tr><td>' + this.productos[i].nombre + '</td><td> $' + this.productos[i].precio + '</td><td>' + this.productos[i].cantidadEnStock + '</td><td>' + palabra + valor + '</td><td><a class="text-danger ps-3 a_personal eliminar-producto" name="eliminar-producto" id="' + i + '" title="Eliminar"><i class="fa-regular fa-trash-can my-auto pe-1 fa-lg"></i></a></td></tr>');
+                $("#tbl_carrito tbody").append('<tr><td>' + this.productos[i].nombre + '</td><td> $' + this.productos[i].precio + '</td><td>' + this.productos[i].cantidadEnStock + '</td><td>' + palabra + valor + '</td><td><a class="text-danger ps-3 a_personal eliminar-producto" name="eliminar-producto" data-nombre="' + this.productos[i].nombre + '" title="Eliminar"><i class="fa-regular fa-trash-can my-auto pe-1 fa-lg"></i></a></td></tr>');
             }
         }
     }
 
     // nuevo carrito
     const carrito = new Carrito();
-
-    // agregamos productos al carrito
-    //carrito.agregarProducto(productoElectronico);
-    //carrito.agregarProducto(productoAlimenticio);
-
-    // Mostrarmos el total de la compra
-    //console.log('Monto total en el carrito: $' + carrito.calcularTotal());
 
     // creando array para productos
     let listadoProductos = [];
@@ -119,27 +112,27 @@ $(document).ready(function () {
     for (let i = 0; i < listadoProductos.length; i++) {
 
         let palabra = "";
-        let valor = "";
-        // Comprobar si el producto es de la clase ProductoAlimenticio
+        let tipo = "";
+        // Comprobar si el producto es de la clase ProductoAlimenticio o ProductoElectronico
         if (listadoProductos[i] instanceof ProductoAlimenticio) {
-            palabra = "Fecha de caducidad: ";
-            valor = listadoProductos[i].fechaCaducidad;
+            palabra = "Fecha de caducidad: " + listadoProductos[i].fechaCaducidad;
+            tipo = "ProductoAlimenticio";
         } else {
-            palabra = "Potencia: ";
-            valor = listadoProductos[i].potencia;
+            palabra = "Potencia: " + listadoProductos[i].potencia;
+            tipo = "ProductoElectronico";
         }
 
-        card = '<div class="col" id="' + i + '">' +
+        card = '<div class="col">' +
             '<div class="card h-100 card-shadow">' +
-            '<img src="./imgProductos/' + i + '.png" class="card-img-top img-fluid" alt="..." id="' + i + '.png"><div class="card-body">' +
+            '<img src="./imgProductos/' + i + '.png" class="card-img-top img-fluid w-75 mx-auto" alt="..." id="' + i + '.png"><div class="card-body">' +
             '<div class="card-body">' +
             '<h5 class="card-title pb-2">' + listadoProductos[i].nombre + '</h5>' +
             '<p class="card-text">Precio: <span class="text-success">$ ' + listadoProductos[i].precio + '</span></p>' +
-            '<p class="card-text">Cantidad: <span class="text-primary cantidad">' + listadoProductos[i].cantidadEnStock + '</span></p>' +
-            '<p class="card-text">' + palabra + '<span>' + valor + '</span></p>' +
+            '<p class="card-text">Cantidad: <span class="text-primary cantidad" id="cantidad_' + i + '">' + listadoProductos[i].cantidadEnStock + '</span></p>' +
+            '<p class="card-text">' + palabra + '</span></p>' +
             '</div>' +
             '<div class="text-end p-1">' +
-            '<a class="btn btn-danger agregar-carrito"><i class="fa-solid fa-plus"></i> Agregar carrito</a>' +
+            '<a class="btn btn-outline-danger agregar-carrito" data-tipo="' + tipo + '" data-id="' + i + '"><i class="fa-solid fa-plus"></i> Agregar carrito</a>' +
             '</div>' +
             '</div>'
         //console.log(card)
@@ -148,48 +141,72 @@ $(document).ready(function () {
 
     $('.agregar-carrito').on('click', function () {
 
-        // Obtenemos el id de la columna clase col mas cercana del boton donde hice clic
-        let col_Id = $(this).closest('.col').attr('id');
+        let index = $(this).attr("data-id");
 
-        //console.log[listadoProductos[col_Id].nombre];
+        let tipo = $(this).attr("data-tipo");
+        //console.log[listadoProductos[index].nombre];
 
-        if (listadoProductos[col_Id].cantidadEnStock > 0) {
-            //console.log[listadoProductos[col_Id]];
-
+        if (listadoProductos[index].cantidadEnStock > 0) {
 
             // Comprobar si el producto es de la clase ProductoAlimenticio
-            if (listadoProductos[col_Id] instanceof ProductoAlimenticio) {
-                //console.log("El producto es un producto alimenticio");
-                let p2 = new ProductoAlimenticio(listadoProductos[col_Id].nombre, listadoProductos[col_Id].precio, 1, listadoProductos[col_Id].fechaCaducidad);
+            if (tipo == "ProductoAlimenticio") {
+                let p2 = new ProductoAlimenticio(listadoProductos[index].nombre, listadoProductos[index].precio, 1, listadoProductos[index].fechaCaducidad);
                 carrito.agregarProducto(p2);
             } else {
-                //console.log("El producto no es un producto alimenticio");
-                let p1 = new ProductoElectronico(listadoProductos[col_Id].nombre, listadoProductos[col_Id].precio, 1, listadoProductos[col_Id].potencia);
+                let p1 = new ProductoElectronico(listadoProductos[index].nombre, listadoProductos[index].precio, 1, listadoProductos[index].potencia);
                 carrito.agregarProducto(p1);
             }
 
-            listadoProductos[col_Id].cantidadEnStock = (listadoProductos[col_Id].cantidadEnStock - 1);
-            $(this).closest('.col').find('.cantidad').text(listadoProductos[col_Id].cantidadEnStock);
+            listadoProductos[index].cantidadEnStock = (listadoProductos[index].cantidadEnStock - 1);
+            $('#cantidad_'+index).text(listadoProductos[index].cantidadEnStock);
 
-            if (listadoProductos[col_Id].cantidadEnStock == 0) {
+            if (listadoProductos[index].cantidadEnStock == 0) {
                 $(this).closest('.agregar-carrito').addClass('disabled');
             }
 
 
         }
-        //console.log('ID de la columna: ' + listadoProductos[col_Id].nombre);
+        //console.log('ID de la columna: ' + listadoProductos[index].nombre);
 
         $('#cantidad_carrito').html(carrito.calcularCantidad());
         $('#total_carrito').html(carrito.calcularTotal());
 
-        
+
 
     });
 
     $('#ir_a_carrito').on('click', function () {
+        console.log(carrito)
         carrito.mostrarProductos();
         $('#modal-carrito').modal("show");
     });
 
+    //Cuando hacemos click en algun borrar de alguna fila de la tabla
+    $('#tbl_carrito tbody').on('click', '.eliminar-producto', function () {
+
+        //elimino la fila de la tabla
+        $(this).closest("tr").remove();
+
+        //Busco en el array de los productos el elemento que borro del carrito
+        //y obtengo el indice del producto encontrado
+        //sino lo encuentra me devuelve -1
+        let productoBuscado = $(this).attr("data-nombre");
+        let index = listadoProductos.findIndex(function (Buscado) {
+            return Buscado.nombre === productoBuscado;
+        });
+        if (index > -1) {
+            listadoProductos[index].cantidadEnStock = (listadoProductos[index].cantidadEnStock + 1);
+            $('#cantidad_'+index).text(listadoProductos[index].cantidadEnStock);
+        }
+        
+        carrito.eliminarProducto(productoBuscado);
+        
+        $('#carrito_cantidad').text(carrito.calcularCantidad());
+        $('#carrito_total').text(carrito.calcularTotal());
+        $('#cantidad_carrito').html(carrito.calcularCantidad());
+        $('#total_carrito').html(carrito.calcularTotal());
+
+        console.log(carrito)
+    });
 });
 

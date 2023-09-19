@@ -87,7 +87,7 @@
     <!-- Fin Header -->
 
     <!-- Inicio Section -->
-    <div class="container pt-5">
+    <div class="container py-5">
         <div class="row row-cols-1 row-cols-md-3 g-5 px-lg-4" id="listado_productos">
             
         </div>
@@ -123,15 +123,22 @@
                              
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn-danger" id="btnAgregarUsuario">Vaciar Carrito</button>
+                        <div class="fw-medium text-end p-2 mt-4 mb-3 fs-5 text-secondary bg-secondary bg-opacity-25">
+                            <span>Cantidad de productos: </span><span class="text-success ps-1 pe-5" id="carrito_cantidad"></span>
+                            <span>Total: </span><span class="text-success" id="carrito_total"></span>
+                        </div>
+                        <div class="text-end mb-3">
+                            <button type="button" class="btn btn-outline-danger" id="btnVaciarCarrito"><i class="fa-regular fa-trash-can fa-lg"></i> Vaciar Carrito</button>
+                        </div>
+                        
                     </div>
                     
                 </div>
                 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-outline-success px-5" data-bs-dismiss="modal">Cerrar</button>
                     <!--<button type="button" class="btn btn-danger" id="btnAgregarUsuario"></button>-->
-                    <button type="button" class="btn btn-danger" id="btnModificarUsuario">Finalizar Compra</button>
+                    <button type="button" class="btn btn-success" id="btnFinalizarCompra"><i class="fa-solid fa-cart-shopping fa-lg"></i> Comprar ahora</button>
                 </div>
             </div>
         </div>
