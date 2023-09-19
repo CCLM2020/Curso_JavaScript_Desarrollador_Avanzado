@@ -167,7 +167,8 @@ $(document).ready(function () {
 
         }
         //console.log('ID de la columna: ' + listadoProductos[index].nombre);
-
+        $('#carrito_cantidad').text(carrito.calcularCantidad());
+        $('#carrito_total').text('$' + carrito.calcularTotal());
         $('#cantidad_carrito').html(carrito.calcularCantidad());
         $('#total_carrito').html(carrito.calcularTotal());
 
@@ -202,7 +203,7 @@ $(document).ready(function () {
         carrito.eliminarProducto(productoBuscado);
         
         $('#carrito_cantidad').text(carrito.calcularCantidad());
-        $('#carrito_total').text(carrito.calcularTotal());
+        $('#carrito_total').text('$' + carrito.calcularTotal());
         $('#cantidad_carrito').html(carrito.calcularCantidad());
         $('#total_carrito').html(carrito.calcularTotal());
 
