@@ -78,17 +78,18 @@ $(document).ready(function () {
             $("#tbl_carrito tbody").empty();
             for (let i = 0; i < this.productos.length; i++) {
                 let palabra = "";
-                let valor = "";
                 // Comprobar si el producto es de la clase ProductoAlimenticio
                 if (this.productos[i] instanceof ProductoAlimenticio) {
-                    palabra = "Fecha de caducidad: ";
-                    valor = this.productos[i].fechaCaducidad;
+                    palabra = "Fecha de caducidad: " + this.productos[i].fechaCaducidad;
                 } else {
-                    palabra = "Potencia: ";
-                    valor = this.productos[i].potencia;
+                    palabra = "Potencia: " + this.productos[i].potencia;
                 }
-                $("#tbl_carrito tbody").append('<tr><td>' + this.productos[i].nombre + '</td><td> $' + this.productos[i].precio + '</td><td>' + this.productos[i].cantidadEnStock + '</td><td>' + palabra + valor + '</td><td><a class="text-danger ps-3 a_personal eliminar-producto" name="eliminar-producto" data-nombre="' + this.productos[i].nombre + '" title="Eliminar"><i class="fa-regular fa-trash-can my-auto pe-1 fa-lg"></i></a></td></tr>');
+                $("#tbl_carrito tbody").append('<tr><td>' + this.productos[i].nombre + '</td><td> $' + this.productos[i].precio + '</td><td>' + this.productos[i].cantidadEnStock + '</td><td>' + palabra + '</td><td><a class="text-danger ps-3 a_personal eliminar-producto" name="eliminar-producto" data-nombre="' + this.productos[i].nombre + '" title="Eliminar"><i class="fa-regular fa-trash-can my-auto pe-1 fa-lg"></i></a></td></tr>');
             }
+        }
+
+        vaciarCarrito() {
+            this.productos.length = 0;
         }
     }
 
@@ -104,9 +105,6 @@ $(document).ready(function () {
     listadoProductos.push(new ProductoAlimenticio("Leche Entera Larga Vida X 1 L", 499, 20, "2024-09-30"));
     listadoProductos.push(new ProductoAlimenticio("Ferrero Rocher Bombones", 3699, 15, "2024-10-30"));
     listadoProductos.push(new ProductoAlimenticio("Te En Saquitos La Virginia Clasico", 807, 55, "2025-11-23"));
-
-    //console.log (listadoProductos)
-
 
     let card = "";
     for (let i = 0; i < listadoProductos.length; i++) {
@@ -142,12 +140,9 @@ $(document).ready(function () {
     $('.agregar-carrito').on('click', function () {
 
         let index = $(this).attr("data-id");
-
         let tipo = $(this).attr("data-tipo");
-        //console.log[listadoProductos[index].nombre];
 
         if (listadoProductos[index].cantidadEnStock > 0) {
-
             // Comprobar si el producto es de la clase ProductoAlimenticio
             if (tipo == "ProductoAlimenticio") {
                 let p2 = new ProductoAlimenticio(listadoProductos[index].nombre, listadoProductos[index].precio, 1, listadoProductos[index].fechaCaducidad);
@@ -156,58 +151,77 @@ $(document).ready(function () {
                 let p1 = new ProductoElectronico(listadoProductos[index].nombre, listadoProductos[index].precio, 1, listadoProductos[index].potencia);
                 carrito.agregarProducto(p1);
             }
-
             listadoProductos[index].cantidadEnStock = (listadoProductos[index].cantidadEnStock - 1);
             $('#cantidad_'+index).text(listadoProductos[index].cantidadEnStock);
 
             if (listadoProductos[index].cantidadEnStock == 0) {
                 $(this).closest('.agregar-carrito').addClass('disabled');
             }
-
-
         }
-        //console.log('ID de la columna: ' + listadoProductos[index].nombre);
+
         $('#carrito_cantidad').text(carrito.calcularCantidad());
         $('#carrito_total').text('$' + carrito.calcularTotal());
         $('#cantidad_carrito').html(carrito.calcularCantidad());
         $('#total_carrito').html(carrito.calcularTotal());
-
-
-
+        $('#ir_a_carrito').removeClass('disabled');
+        $('#titulo_total').removeClass('d-none');
     });
 
     $('#ir_a_carrito').on('click', function () {
-        console.log(carrito)
         carrito.mostrarProductos();
         $('#modal-carrito').modal("show");
     });
 
     //Cuando hacemos click en algun borrar de alguna fila de la tabla
     $('#tbl_carrito tbody').on('click', '.eliminar-producto', function () {
-
         //elimino la fila de la tabla
         $(this).closest("tr").remove();
 
+        let productoBuscado = $(this).attr("data-nombre");
+        //con esta funcion envio el nombre del producto lo busco en listadoProductos
+        //y restablezco la cantidad que estaba en el carrito en el array listadoProductos.
+        restauraProducto(productoBuscado);
+
+        carrito.eliminarProducto(productoBuscado);
+        
+        actualizarValores();
+
+    });
+
+    $('#btnVaciarCarrito').on('click', function () {
+        for (let i = 0; i < carrito.productos.length; i++) {
+            restauraProducto(carrito.productos[i].nombre);
+        }
+        carrito.vaciarCarrito();
+        
+        actualizarValores();
+    });
+
+    function restauraProducto(productoBuscado) {
         //Busco en el array de los productos el elemento que borro del carrito
         //y obtengo el indice del producto encontrado
         //sino lo encuentra me devuelve -1
-        let productoBuscado = $(this).attr("data-nombre");
         let index = listadoProductos.findIndex(function (Buscado) {
             return Buscado.nombre === productoBuscado;
         });
         if (index > -1) {
             listadoProductos[index].cantidadEnStock = (listadoProductos[index].cantidadEnStock + 1);
-            $('#cantidad_'+index).text(listadoProductos[index].cantidadEnStock);
-        }
-        
-        carrito.eliminarProducto(productoBuscado);
-        
+            $('#cantidad_' + index).text(listadoProductos[index].cantidadEnStock);
+            $('[data-id="' + index + '"]').removeClass('disabled');
+        }  
+    }
+
+    function actualizarValores() {
         $('#carrito_cantidad').text(carrito.calcularCantidad());
         $('#carrito_total').text('$' + carrito.calcularTotal());
         $('#cantidad_carrito').html(carrito.calcularCantidad());
         $('#total_carrito').html(carrito.calcularTotal());
 
-        console.log(carrito)
-    });
+        if (carrito.calcularCantidad() < 1) {
+            $('#ir_a_carrito').addClass('disabled');
+            $('#titulo_total').addClass('d-none');
+            $('#modal-carrito').modal("hide");
+        }
+    }
 });
 
