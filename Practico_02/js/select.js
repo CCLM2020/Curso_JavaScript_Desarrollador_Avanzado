@@ -95,7 +95,7 @@ $(document).ready(function () {
             $('#listado_productos').empty();
             $('#listado_productos').append(card);
         }
-      });
+    });
 
     
 });

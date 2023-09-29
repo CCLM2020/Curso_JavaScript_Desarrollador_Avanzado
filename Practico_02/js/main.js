@@ -215,6 +215,50 @@ $(document).ready(function () {
       $('#error_Pass_B').addClass('ocultar');
     }
   });
+
+
+  // Crear un array con los países y ciudades
+  var paisesCiudades = [
+    {
+      pais: "Estados Unidos",
+      ciudades: ["Nueva York", "Los Ángeles", "Chicago"]
+    },
+    {
+      pais: "Canadá",
+      ciudades: ["Toronto", "Montreal", "Vancouver"]
+    },
+    {
+      pais: "México",
+      ciudades: ["Ciudad de México", "Guadalajara", "Monterrey"]
+    }
+  ];
+
+  // cargamos select paises
+  for (let i = 0; i < paisesCiudades.length; i++) {
+
+    let option = '<option value="' + i + '">' + paisesCiudades[i].pais + '</option>';
+
+    $('#cbx-Paises').append(option);
+
+  }
+
+  // dejas select ciudades vacio para cuando hago el primer change
+  $('#cbx-Paises').val(-1);
+
+  //al hacer change en select pais carga las ciudades del pais seleccionado
+  $("#cbx-Paises").change(function () {
+    if ($(this).val() != "") {
+      $('#cbx-Ciudades').empty();
+      let p = ($(this).val());
+      for (let i = 0; i < paisesCiudades[p].ciudades.length; i++) {
+
+        let option = '<option value="' + i + '">' + paisesCiudades[p].ciudades[i] + '</option>';
+    
+        $('#cbx-Ciudades').append(option);
+    
+      }
+    }
+  });
 });
 
 //esta funcion me devuelve verdadero si el formato de un usuario es valido que permitir letras, números, _ y -.
