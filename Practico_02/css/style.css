@@ -11,3 +11,81 @@ body {
 .highlight {
     background-color: rgba(0, 17, 255, 0.479);
 }
+
+/*Para el formulario*/
+.error {
+  border: 1px solid rgba(255, 0, 0, 0.966) !important;
+  box-shadow: 0 0 1px 3px rgba(253, 2, 2, 0.534) !important;
+}
+
+.row-relative {
+  position: relative;
+}
+
+.span-error {
+  position: absolute;
+  top: 106%;
+  left: 2%;
+  font-size: 0.8rem;
+  color: red;
+  line-height: 0.95;
+  padding-top: 0.05rem;
+}
+
+#id-icono-passA {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.ocultar {
+  display: none;
+}
+
+.col-btn {
+  flex: 1 1 49%;
+}
+
+.a_personal{
+  text-decoration: none;
+  &:hover{
+      font-weight:450;
+      cursor: pointer;
+    }
+}
+
+#id-icono-password {
+  position: absolute;
+  top: 75%;
+  right: 20px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+#id-icono-passSAlert {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.btn-sweetAlert-Admin {
+  flex: 1 1 48%;
+}
+
+.font-size-color-pass {
+  font-size: 0.8rem;
+  color: #646463;
+  line-height: 1;
+}
+
+.font-size-add-delete{
+  font-size: 0.85rem;
+}
+
+.card-shadow:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}

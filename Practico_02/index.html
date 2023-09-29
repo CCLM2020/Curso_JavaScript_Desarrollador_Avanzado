@@ -111,13 +111,136 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 border border-1 my-2">
+            <div class="col-12 border border-1 my-2 pb-3">
                 <div class="py-2">
                     <h4 class="h4">Ejercicio 6</h4>
                 </div>
                 <button class="btn btn-primary" id="btn1">Botón 1</button>
                 <button class="btn btn-success" id="btn2">Botón 2</button>
                 <button class="btn btn-danger" id="btn3">Botón 3</button>
+            </div>
+            <div class="col-12 border border-1 my-2 pb-3">
+                <div class="py-2">
+                    <h4 class="h4">Ejercicio 7</h4>
+                </div>
+                <div class="col-5 bg-secondary-subtle p-4 rounded-3">
+                    <form id="frmAgregarUsuario" method="post" enctype="multipart/form-data">
+
+                        <div class="mb-4 row-relative">
+                            <div class="row">
+                                <div class="col d-flex justify-content-between">
+                                    <label for="txt_nombreUsuario" class="form-label">Nombre: </label>
+                                    <span class="font-size-add-delete align-self-end pb-1" id="spanMaxUsuario">Restan
+                                        <span id="restoUsuario">50</span> caracteres</span>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" name="txt_nombreUsuario" id="txt_nombreUsuario"
+                                required>
+                            <div class="span-error ocultar" id="error_nombre_usuario"></div>
+                        </div>
+
+                        <div class="mb-4 pt-2 row-relative">
+                            <div class="row">
+                                <div class="col d-flex justify-content-between">
+                                    <label for="txt_emailUsuario" class="form-label">Correo electrónico: </label>
+                                    <span class="font-size-add-delete align-self-end pb-1" id="spanMaxEmail">Restan
+                                        <span id="restoEmail">100</span> caracteres</span>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" name="txt_emailUsuario" id="txt_emailUsuario"
+                                required>
+                            <div class="span-error ocultar" id="error_Email"></div>
+                        </div>
+
+                        <div class="mb-4 pt-2 row-relative">
+                            <div class="row">
+                                <div class="col d-flex justify-content-between">
+                                    <label for="txt_emailUsuario_B" class="form-label">Repetir correo: </label>
+                                    <span class="font-size-add-delete align-self-end pb-1" id="spanMaxEmail_B">Restan
+                                        <span id="restoEmail_B">100</span> caracteres</span>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" name="txt_emailUsuario_B" id="txt_emailUsuario_B"
+                                required>
+                            <div class="span-error ocultar" id="error_Email_B"></div>
+                        </div>
+
+                        <div class="mb-4 pt-2 row-relative">
+                            <div class="row">
+                                <div class="col d-flex justify-content-between">
+                                    <label for="txt_Pass_A" class="form-label">Contraseña: </label>
+                                    <span class="font-size-add-delete align-self-end pb-1" id="spanMaxPassA">Restan
+                                        <span id="restoPassA">50</span> caracteres</span>
+                                </div>
+                            </div>
+                            <div class="row-relative">
+                                <input type="password" class="form-control" name="txt_Pass_A" id="txt_Pass_A" required>
+                                <span class="text-primary" id="id-icono-passA">
+                                    <i class="fa fa-eye-slash" id="id-icono-A"></i>
+                                </span>
+                            </div>
+                            <div class="span-error ocultar" id="error_Pass_A"></div>
+                        </div>
+
+                        <div class="mb-1 pt-2 row-relative">
+                            <div class="row">
+                                <div class="col d-flex justify-content-between">
+                                    <label for="txt_Pass_B" class="form-label">Repitir contraseña: </label>
+                                    <span class="font-size-add-delete align-self-end pb-1" id="spanMaxPassB">Restan
+                                        <span id="restoPassB">50</span> caracteres</span>
+                                </div>
+                            </div>
+                            <input type="password" class="form-control" name="txt_Pass_B" id="txt_Pass_B" required>
+                            <div class="span-error ocultar" id="error_Pass_B"></div>
+                        </div>
+
+                        <div class="mb-1">
+                            <div class="col-12 pt-4 font-size-color-pass">
+                                <span>La contraseña debe tener al menos 8 caracteres. Debe incluir una combinación de
+                                    letras (mayúsculas y minúsculas), números y caracteres especiales (por ejemplo, !,
+                                    @, #, $, %). Cuantas más combinaciones se utilicen, más segura será.</span>
+                            </div>
+                        </div>
+
+                    </form>
+                    <div class="text-end pt-4">
+                        <button type="button" class="btn btn-outline-primary" id="btnCancelarUsuario">Cerrar</button>
+                        <button type="button" class="btn btn-primary" id="btnAgregarUsuario">Agregar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 border border-1 my-2 pb-3">
+                <div class="py-2">
+                    <h4 class="h4">Ejercicio 8</h4>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <select class="form-select" aria-label="Default select example" id="cbx-Productos" name="cbx-Productos">
+                        </select>
+                    </div>
+                    <div class="col-6 px-5" id="listado_productos">
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-12 border border-1 my-2 pb-3">
+                <div class="py-2">
+                    <h4 class="h4">Ejercicio 9</h4>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="" class="form-label">Paises:</label>
+                        <select class="form-select" aria-label="Default select example" id="cbx-Paises" name="cbx-Paises">
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label for="" class="form-label">Ciudades:</label>
+                        <select class="form-select" aria-label="Default select example" id="cbx-Ciudades" name="Ciudades">
+                        </select>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -137,8 +260,9 @@
     <!-- CDN jquery.inputmask
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script> -->
 
-    <!-- script mi archivo js-->
+    <!-- script mis archivos js-->
     <script src="./js/main.js"></script>
+    <script src="./js/select.js"></script>
 </body>
 
 </html>
