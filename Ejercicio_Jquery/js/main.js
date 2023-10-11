@@ -223,5 +223,23 @@ $(document).ready(function () {
             $('#modal-carrito').modal("hide");
         }
     }
+
+    function loadProductos() {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const productos = [
+                    { id: 1, name: 'Televisor', price: 10000 },
+                    { id: 2, name: 'Cafetera', price: 1200 },
+                    { id: 3, name: 'Plancha', price: 500 }];
+                if (productos.length > 0) {
+                    resolve(productos);
+                }
+
+                else {
+                    reject('Error');
+                }
+            }, 3000);
+        });
+    }    
 });
 
