@@ -23,7 +23,6 @@ $(document).ready(function () {
     });
 
 
-    //si hago click en entrar me lleva a la pagina de ADMINISTRACION si es tipo 1 o 2, si es 3 me lleva al incio logueado
     $('#btn-entrar').click(function () {
 
         var user = limpiarAdmin($('#id_txtUsuario').val().trim());
@@ -38,7 +37,6 @@ $(document).ready(function () {
                     id_txtUsuario: user,
                     id_txtContrasenia: pass
                 },
-                //dataType: "json",
                 success: function (response) {
                     Swal.fire({
                         position: 'center',
