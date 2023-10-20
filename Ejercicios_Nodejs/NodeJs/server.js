@@ -19,10 +19,16 @@ server.listen(PORT, () => {
 */
 
 const express = require('express');
-const app = express();
-
 const cors = require('cors');
+const bodyParser = require('body-parser');
+
+
+
+const app = express();
 app.use(cors());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json()); 
+//app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('¡Hola, Express CCLM!');
@@ -119,6 +125,13 @@ app.get("/libros", (req,res) => {
     { id: 10, título: 'La sombra del viento', autor: 'Carlos Ruiz Zafón', año: 2001 },
   ];
  res.json(libros);
+});
+
+app.post("/validarUsuario", (req,res) => {
+  const data = req.body;
+  console.log('Datos recibidos:', data);
+  const htmlResponse = `<p>El usuario <strong>${data.id_txtUsuario}</strong> se ha logueado correctamente.</p>`;
+  res.send(htmlResponse);
 });
 
 
