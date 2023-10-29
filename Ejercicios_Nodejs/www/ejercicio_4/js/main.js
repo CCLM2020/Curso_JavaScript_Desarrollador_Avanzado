@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    const URL_SERVER = "http://localhost:3000/";
 
     //cuando click en el icono ver password dejor ver el texto o lo oculto
     $('#id-icono-password').click(function () {
@@ -32,7 +33,7 @@ $(document).ready(function () {
             // Envía una solicitud AJAX al archivo candado.php
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:3000/validarUsuario',
+                url: URL_SERVER + "validarUsuario",
                 data: {
                     id_txtUsuario: user,
                     id_txtContrasenia: pass

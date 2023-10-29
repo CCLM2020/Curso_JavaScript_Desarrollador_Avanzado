@@ -17,17 +17,31 @@ server.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}/`);
 });
 */
+//const bodyParser = require('body-parser');
+//app.use(bodyParser.json()); // for parsing application/json
+//app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
 
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-
+const dias = require('./functionDias');
+const libros = require('./route/libros');
+const tienda = require('./route/tienda');
 
 
 const app = express();
 app.use(cors());
+app.set('view engine', 'ejs');
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json()); 
+
+//const dia = dias.diaenLetras(1);
+console.log(dias.sumar(1,2));
+
+console.log(dias.diaenLetras(2));
+
 //app.use(express.json());
 
 app.get('/', (req, res) => {
@@ -111,6 +125,8 @@ app.get("/usuarios", (req,res) => {
 });
 
 
+app.use('/libros', libros);
+/*
 app.get("/libros", (req,res) => {
   const libros = [
     { id: 1, título: 'El Alquimista', autor: 'Paulo Coelho', año: 1988 },
@@ -126,6 +142,9 @@ app.get("/libros", (req,res) => {
   ];
  res.json(libros);
 });
+*/
+
+app.use('/tienda', tienda);
 
 app.post("/validarUsuario", (req,res) => {
   const data = req.body;
