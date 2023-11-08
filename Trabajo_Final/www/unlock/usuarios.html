@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CDN bootstrap 5.3-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+        
+    <!-- CSS Croppie para recortar imagenes -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" />
+
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.min.css" rel="stylesheet">
+
+    <!-- Mis estilos-->
+    <link rel="stylesheet" href="./css/style.css">
+
+    <title>Administrador</title>
+</head>
+
+<body class="">
+
+    <div class="container">
+
+        <div class="row">
+            <nav class="navbar navbar-expand-lg bg-primary mb-5" data-bs-theme="dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand cursor" id="id_link_inicio"><i class="fa-solid fa-user-tie fa-xl"></i></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav col-12 d-flex">
+                            <li class="nav-item">
+                                <a class="nav-link cursor ocultar" id="id_productos_nav">Productos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link cursor ocultar active" id="id_usuarios_nav">Usuarios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link cursor" href="../index.html" id="">Ir a la tienda</a>
+                            </li>
+                            <li class="nav-item dropdown  ms-auto">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false" id="id_link_registrate">
+                                    
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" id="id_link_cerrar"><i
+                                                class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="row">
+            <div class="col-12 d-flex align-items-center justify-content-end p-0 pb-3">
+                <a href="#" class="text-primary pe-1" id="btn-show-Agregar-Usuario"><i class="fa-solid fa-plus"></i>
+                    Agregar Usuario</a>
+            </div>
+            <div class="col-12 p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="tbl_usuarios">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">Usuario</th>
+                                <th scope="col">Imagen</th>
+                                <th scope="col">Acciones</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-usuario" data-bs-focus="false" tabindex="-1">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header bg-primary text-light">
+                    <h5 class="modal-title" id="titulo-modal-usuario"></h5>
+                    <div data-bs-theme="dark">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </div>
+
+                <div class="modal-body">
+
+                    <form id="frmAgregarUsuario" method="post" enctype="multipart/form-data">
+
+                        <div class="mb-4 row-relative">
+                            <div class="row">
+                                <div class="col d-flex justify-content-between">
+                                    <label for="txt_nombreUsuario" class="form-label">Nombre: </label>
+                                    <span class="font-size-add-delete align-self-end pb-1" id="spanMaxUsuario">Restan
+                                        <span id="restoUsuario">100</span> caracteres</span>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" name="txt_nombreUsuario" id="txt_nombreUsuario"
+                                required>
+                            <div class="span-error ocultar" id="error_nombre_usuario"></div>
+                        </div>
+
+                        <div class="mb-4 pt-2 row-relative">
+                            <div class="row">
+                                <label for="fil_imagenUsuario" class="form-label">Imagen:</label>
+                                <div class="col-12">
+                                    <input type="file" class="form-control" name="fil_imagenUsuario"
+                                        id="fil_imagenUsuario" accept="image/jpeg, image/jpg, image/png">
+                                </div>
+                            </div>
+                            <div class="span-error ocultar" id="error_Imagen"></div>
+                        </div>
+
+                        <div class="mb-3 ver-croppie" id="id-ver-croppie">
+                            <div class="row pt-4">
+                                <div class="col-12 p-0">
+                                    <div id="imgVistaPrevia"></div>
+                                </div>
+                                <div class="col-12 pb-4 text-center">
+                                    <button id="btn-salvar" type="button" class="btn btn-primary"><i
+                                            class="fa-solid fa-check"></i> Salvar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4 ocultar" id="ver-resultado"> <!--ver-resultado-->
+                            <div class="row">
+                                <div class="col-12">
+                                    <img class="rounded border-img" id="imgResultado" src="">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="mb-4 pt-2 row-relative">
+                            <div class="row">
+                                <div class="col d-flex justify-content-between">
+                                    <label for="txt_Pass_A" class="form-label">Contraseña: </label>
+                                    <span class="font-size-add-delete align-self-end pb-1" id="spanMaxPassA">Restan
+                                        <span id="restoPassA">100</span> caracteres</span>
+                                </div>
+                            </div>
+                            <div class="row-relative">
+                                <input type="password" class="form-control" name="txt_Pass_A" id="txt_Pass_A" required>
+                                <span class="text-primary" id="id-icono-passA">
+                                    <i class="fa fa-eye-slash" id="id-icono-A"></i>
+                                </span>
+                            </div>
+                            <div class="span-error ocultar" id="error_Pass_A"></div>
+                        </div>
+
+                        <div class="mb-1 pt-2 row-relative">
+                            <div class="row">
+                                <div class="col d-flex justify-content-between">
+                                    <label for="txt_Pass_B" class="form-label">Repitir contraseña: </label>
+                                    <span class="font-size-add-delete align-self-end pb-1" id="spanMaxPassB">Restan
+                                        <span id="restoPassB">50</span> caracteres</span>
+                                </div>
+                            </div>
+                            <input type="password" class="form-control" name="txt_Pass_B" id="txt_Pass_B" required>
+                            <div class="span-error ocultar" id="error_Pass_B"></div>
+                        </div>
+
+                        <div class="mb-1">
+                            <div class="col-12 pt-4 font-size-color-pass">
+                                <span>La contraseña debe tener al menos 8 caracteres. Debe incluir una combinación de
+                                    letras (mayúsculas y minúsculas), números y caracteres especiales (por ejemplo, !,
+                                    @, #, $, %). Cuantas más combinaciones se utilicen, más segura será.</span>
+                            </div>
+                        </div>
+
+                        <!--estos input ocultos los voy a usar para pasar datos en la edicion-->
+                        <div class="mb-3">
+                            <input type="hidden" id="txt_id_Usuario" name="txt_id_Usuario">
+                            <input type="hidden" id="txt_nomImgOculto" name="txt_nomImgOculto">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="btnAgregarUsuario">Agregar</button>
+                    <button type="button" class="btn btn-primary" id="btnModificarUsuario">Modificar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- script bootstrap 5.3 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+    <!-- CDN Fontawesome Icons -->
+    <script src="https://kit.fontawesome.com/1a6625aa14.js" crossorigin="anonymous"></script>
+
+    <!--JQuery 3.7.1-->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <!-- SweetAlert2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.all.min.js"></script>
+
+    <!-- CDN Croppie para recortar imagenes -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+
+    <!-- CDN jquery.inputmask -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
+
+    <!-- script mi archivo js-->
+    <script src="./js/main_unlock.js"></script>
+</body>
+
+</html>

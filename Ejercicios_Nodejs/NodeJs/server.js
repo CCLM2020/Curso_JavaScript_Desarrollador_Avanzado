@@ -25,9 +25,11 @@ server.listen(PORT, () => {
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
 const dias = require('./functionDias');
-const libros = require('./route/libros');
-const tienda = require('./route/tienda');
+const libros = require('./routes/libros');
+const tienda = require('./routes/tienda');
 
 
 const app = express();
@@ -36,6 +38,14 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json()); 
+
+mongoose.connect('mongodb://127.0.0.1:27017/curso', { useNewUrlParser: true, useUnifiedTopology: true })
+   .then(() => {
+      console.log('Conexión a MongoDB exitosa');
+   })
+   .catch(error => {
+      console.error('Error de conexión a MongoDB:', error);
+   });
 
 //const dia = dias.diaenLetras(1);
 console.log(dias.sumar(1,2));

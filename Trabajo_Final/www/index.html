@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS Bootstrap -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.min.css" rel="stylesheet">
+
+    <!-- Mi hoja de estilo -->
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body class="bg-light">
+
+    <!-- Inicio Barra de Navegación -->
+    <div class="container p-0">
+        <div class="row m-0">
+
+            <!-- Inicio Menu Izquierdo-->
+            <div class="col-8 px-0">
+                <nav class="navbar navbar-expand-lg bg-warning" >
+                    <div class="container-fluid">
+                        <a class="navbar-brand img-fluid" href="./index.html"><img src="./img/logo-marketplace-png-34.png" class="img-fluid" alt="" style="height: 40px;"></a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                </nav>
+            </div>
+            <!-- Fin Menu Izquierdo-->
+
+            <!-- Inicio Menu Derecho-->
+            <div class="col-4 px-0">
+                <nav class="navbar navbar-expand-xl bg-warning h-100">
+                    <div class="container-fluid justify-content-end">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link a_personal text-danger disabled" id="ir_a_carrito"><i class="fa-solid fa-cart-shopping fa-lg"></i> <span id="cantidad_carrito">0</span> <span class="text-personal ps-2 d-none" id="titulo_total">Total $<span id="total_carrito">0</span></span></a>
+                            </li>
+                            <li class="nav-item dropdown ms-auto ps-3">
+                                <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false" id="id_link_registrate">
+
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li id="id_li_ir_a_admin">
+                                    </li>
+                                    <li id="id_li-login">
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <!-- Fin Menu Derecho-->
+
+        </div>
+
+    </div>
+    <!-- Fin Barra de Navegación -->
+
+    <!-- Inicio Header -->
+    <div class="container pt-4">
+        <div class="row">
+            <div class="col-12 pb-1 text-center border-bottom border-warning border-2">
+                <span class="display-2 fw-bolder">SHOPEE</span>
+                <span class="ps-2 display-2 text-danger">MARKET</span>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Header -->
+
+    <!-- Inicio Section -->
+    <div class="container py-5">
+        <div class="row row-cols-1 row-cols-md-3 g-5 px-lg-4" id="listado_productos">
+            
+        </div>
+    </div>
+    <!-- Fin Section -->
+
+
+    <div class="modal" id="modal-carrito" data-bs-focus="false" tabindex="-1">
+
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+    
+                <div class="modal-header bg-warning text-danger">
+                    <h5 class="modal-title" id="titulo-modal-carrito"><i class="fa-solid fa-cart-shopping fa-lg text-danger"></i> Shopee Market</h5>
+                    <div data-bs-theme="dark">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </div>
+    
+                <div class="modal-body">
+                    <div class="col-12 pt-1">
+                        <table class="table" id="tbl_carrito">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Detalle</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             
+                            </tbody>
+                        </table>
+                        <div class="text-end">
+                            <button type="button" class="btn btn-outline-danger btn-sm border-0" id="btnVaciarCarrito"><i class="fa-regular fa-trash-can fa-lg"></i> Vaciar Carrito</button>
+                        </div>
+                        <div class="fw-medium text-end p-2 mt-3 fs-5 text-secondary bg-secondary bg-opacity-25">
+                            <span>Cantidad de productos: </span><span class="text-success ps-1 pe-5" id="carrito_cantidad"></span>
+                            <span>Total: </span><span class="text-success" id="carrito_total"></span>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success px-5" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" id="btnFinalizarCompra"><i class="fa-solid fa-cart-shopping fa-lg"></i> Comprar ahora</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- script jQuery 3.7.1 -->
+    <script src="./js/code.jquery.com_jquery-3.7.1.min.js"></script>
+
+    <!-- SweetAlert2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.all.min.js"></script>
+
+    <!-- JavaScript Bundle with Popper Bootstrap-->
+    <script src="./js/bootstrap.bundle.min.js"></script>
+
+    <!-- CDN Fontawesome Icons -->
+    <script src="https://kit.fontawesome.com/1a6625aa14.js" crossorigin="anonymous"></script>
+
+    <!-- Mi JS -->
+    <script type="text/javascript" src="./js/main.js"></script>
+</body>
+
+</html>
