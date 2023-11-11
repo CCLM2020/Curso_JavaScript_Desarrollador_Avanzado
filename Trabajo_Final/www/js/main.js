@@ -271,7 +271,7 @@ $(document).ready(function () {
                         tipo = "ProductoElectronico";
                     }
 
-                    card = '<div class="col">' +
+                    card = '<div class="col">' + //-7 col-sm-6 col-lg-4 mx-auto mx-sm-0
                         '<div class="card h-100 card-shadow">' +
                         '<img src="./imgProductos/' + response[i].imagenProducto + '" class="card-img-top img-fluid w-75 mx-auto pt-3" alt="..." width="250px" id="' + response[i].imagenProducto + '"><div class="card-body">' +
                         '<div class="card-body">' +
